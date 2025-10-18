@@ -43,23 +43,10 @@ export default function IdentifyPage() {
 	return (
 		<main className="flex flex-col items-center justify-center min-h-screen p-6 bg-gray-100">
 			<div className="w-full max-w-2xl bg-white p-6 rounded-xl shadow-lg">
-				<h1 className="text-2xl font-semibold mb-4 text-gray-800">
-					Plant Identifier
-				</h1>
 
 				<form onSubmit={handleSubmit} className="space-y-4">
 					{/* Replace file upload with camera capture */}
 					<CameraCapture onCapture={(imageDataUrl) => setPreview(imageDataUrl)} />
-
-					{preview && (
-						<div className="mt-4">
-							<img
-								src={preview}
-								alt="Preview"
-								className="w-full rounded-lg border border-gray-300"
-							/>
-						</div>
-					)}
 
 					<button
 						type="submit"
