@@ -1,28 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import CameraCapture from "@/components/CameraCapture"; // ← import the camera component
 
 export default function IdentifyPage() {
-	const [file, setFile] = useState<File | null>(null);
 	const [preview, setPreview] = useState<string | null>(null);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 	const [results, setResults] = useState<Record<string, string> | null>(null);
-
-	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const uploadedFile = e.target.files?.[0] || null;
-		setFile(uploadedFile);
-
-		if (uploadedFile) {
-			const reader = new FileReader();
-			reader.onloadend = () => {
-				setPreview(reader.result as string);
-			};
-			reader.readAsDataURL(uploadedFile);
-		} else {
-			setPreview(null);
-		}
-	};
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -45,8 +30,6 @@ export default function IdentifyPage() {
 			}
 
 			const data = await res.json();
-
-			// Store entire object dynamically
 			setResults(data);
 			console.log("AI response:", data);
 		} catch (err: any) {
@@ -65,12 +48,8 @@ export default function IdentifyPage() {
 				</h1>
 
 				<form onSubmit={handleSubmit} className="space-y-4">
-					<input
-						type="file"
-						accept="image/*"
-						onChange={handleFileChange}
-						className="block w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
-					/>
+					{/* Replace file upload with camera capture */}
+					<CameraCapture onCapture={(imageDataUrl) => setPreview(imageDataUrl)} />
 
 					{preview && (
 						<div className="mt-4">
@@ -97,22 +76,23 @@ export default function IdentifyPage() {
 					</div>
 				)}
 			</div>
+
 			{results && (
-					<div className="mt-6 border-t pt-4 space-y-6 mb-18">
-						{Object.entries(results).map(([key, value]) => (
-							<div key={key}>
-								<h3 className="font-semibold text-gray-800">
-									{key
-										.replace(/([A-Z])/g, " $1") // split camelCase/PascalCase
-										.replace(/^./, (s) => s.toUpperCase())} {/* Capitalize first letter */}
-								</h3>
-								<p className="text-gray-700 mt-1">
-									{value && value !== "N/A" ? value : "No data available."}
-								</p>
-							</div>
-						))}
-					</div>
-				)}
+				<div className="mt-6 border-t pt-4 space-y-6 mb-18">
+					{Object.entries(results).map(([key, value]) => (
+						<div key={key}>
+							<h3 className="font-semibold text-gray-800">
+								{key
+									.replace(/([A-Z])/g, " $1")
+									.replace(/^./, (s) => s.toUpperCase())}
+							</h3>
+							<p className="text-gray-700 mt-1">
+								{value && value !== "N/A" ? value : "No data available."}
+							</p>
+						</div>
+					))}
+				</div>
+			)}
 		</main>
 	);
 }

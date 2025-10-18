@@ -103,22 +103,22 @@ export default function IdentifyTemplatePage() {
                 </form>
                 */}
                 <form onSubmit={handleSubmit} className="space-y-4">
-    <CameraCapture onCapture={(imageDataUrl) => setPreview(imageDataUrl)} />
+                    <CameraCapture onCapture={(imageDataUrl) => setPreview(imageDataUrl)} />
 
-    {preview && (
-        <div className="mt-4">
-            <img src={preview} alt="Preview" className="w-full rounded-lg border border-gray-300" />
-        </div>
-    )}
+                    {preview && (
+                        <div className="mt-4">
+                            <img src={preview} alt="Preview" className="w-full rounded-lg border border-gray-300" />
+                        </div>
+                    )}
 
-    <button
-        type="submit"
-        disabled={!preview || loading}
-        className="w-full py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50"
-    >
-        {loading ? "Analyzing..." : "Identify Image"}
-    </button>
-</form>
+                    <button
+                        type="submit"
+                        disabled={!preview || loading}
+                        className="w-full py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50"
+                    >
+                        {loading ? "Analyzing..." : "Identify Image"}
+                    </button>
+                </form>
                 {error && (
                     <div className="mt-6 border-t pt-4 text-red-600">
                         <strong>Error:</strong> {error}
@@ -127,9 +127,8 @@ export default function IdentifyTemplatePage() {
             </div>
 
             <div
-                className={`inner-content relative flex flex-col bg-white rounded-t-2xl p-6 py-6 w-full shadow transition-all duration-500 ${
-                    isOpen ? "h-1/2" : "h-24"
-                }`}
+                className={`inner-content relative flex flex-col bg-white rounded-t-2xl p-6 py-6 w-full shadow transition-all duration-500 ${isOpen ? "h-1/2" : "h-24"
+                    }`}
             >
                 {/* Toggle Arrow */}
                 <button
@@ -141,9 +140,8 @@ export default function IdentifyTemplatePage() {
 
                 {/* Scrollable content */}
                 <div
-                    className={`overflow-y-auto transition-opacity duration-300 ${
-                        isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-                    }`}
+                    className={`overflow-y-auto transition-opacity duration-300 ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+                        }`}
                 >
                     <h3 className="text-xl font-bold mb-2 text-slate-800">
                         Sunflower{" "}
